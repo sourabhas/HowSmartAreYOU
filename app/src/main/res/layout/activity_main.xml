@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/back"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/ic_newimage"
     tools:context=".MainActivity">
 
     <TextView
@@ -15,7 +16,7 @@
         android:layout_marginTop="36dp"
         android:fontFamily="@font/flavors"
         android:text="@string/brain_storm"
-        android:textColor="#09155A"
+        android:textColor="@color/font_black"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -44,7 +45,7 @@
             android:fontFamily="@font/chewy"
             android:text="TextView"
             android:textColor="@android:color/black"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </androidx.cardview.widget.CardView>
 
     <Button
@@ -52,7 +53,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@color/colorAccent"
+        android:background="@color/bright"
+        android:textColor="@color/cardview_light_background"
+        android:textStyle="bold"
         android:text="@string/true_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.315"
@@ -64,7 +67,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@color/colorAccent"
+        android:background="@color/bright"
+        android:textColor="@color/cardview_light_background"
+        android:textStyle="bold"
         android:text="@string/false_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.656"
@@ -102,7 +107,7 @@
         android:layout_marginTop="60dp"
         android:fontFamily="@font/berkshire_swash"
         android:text="@string/count_of_questions"
-        android:textColor="#313435"
+        android:textColor="#EED70E"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -115,6 +120,7 @@
         android:fontFamily="@font/berkshire_swash"
         android:text="@string/scores"
         android:textSize="18sp"
+        android:textColor="@color/font_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.101"
         app:layout_constraintStart_toStartOf="parent"
@@ -128,6 +134,7 @@
         android:layout_marginBottom="24dp"
         android:fontFamily="@font/berkshire_swash"
         android:text="Highest score:"
+        android:textColor="@color/font_black"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintStart_toStartOf="parent" />
