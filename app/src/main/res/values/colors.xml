@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3A95C3</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#B15E7F</color>
+    <color name="red">#B41111</color>
     <color name="cardview_color">#CFD880</color>
     <color name="font_black">#070003</color>
     <color name="bright">#B31956</color>

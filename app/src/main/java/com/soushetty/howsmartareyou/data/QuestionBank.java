@@ -19,7 +19,7 @@ import static android.content.ContentValues.TAG;
 
 public class QuestionBank {
 
-    ArrayList<Question> questionArrayList=new ArrayList<>(); //an arraylist of type Question.java class
+    ArrayList<Question> questionArrayList=new ArrayList<>(); //an array list of type Question.java class
     //using the free JSON API url available to get all the data's stored in it
     private String url="https://raw.githubusercontent.com/curiousily/simple-quiz/master/script/statements-data.json";
 

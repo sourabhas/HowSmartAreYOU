@@ -3,16 +3,21 @@ package com.soushetty.howsmartareyou;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Preferences preferences;
     private Score score;
     private TextView highestScore;
+    private ImageView ani_image;
+    public AnimationDrawable animationDrawable;
+    public ImageButton sharebutton;
 
 
     @Override
@@ -58,6 +66,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nextButton=findViewById(R.id.next);
         scores=findViewById(R.id.scoreview);
         highestScore=findViewById(R.id.highestscore);
+        //animation for the image
+        ani_image=(ImageView) findViewById(R.id.animate);
+       /* ani_image.setBackgroundResource(R.drawable.anim); //the xml file created under res-drawble
+        animationDrawable= (AnimationDrawable) ani_image.getDrawable(); *///to get all the images 1,2,3,4,5 placed in drawble xml file
 
         score=new Score(); //new object used to calculate scores
 
@@ -71,6 +83,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         falseButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
         previousButton.setOnClickListener(this);
+
+        sharebutton=findViewById(R.id.sharebutton);
+        sharebutton.setOnClickListener(this);
 
         highestScore.setText(MessageFormat.format("Highest Score:{0}", String.valueOf(preferences.getHighestScore())));
         questionList= new QuestionBank().getQuestions(new QuestionsListAsyncResponse() {
@@ -86,6 +101,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
+    }
+
+    //overriding onTouch function for animation of the images in drawable
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Animation startAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fadein);
+                ani_image.startAnimation(startAnimation);
+                //stop the animation
+                //Uncomment this for FrameAnimation to work
+            }
+        }, 50); //chance to 50 for fadeAnimation
+        return super.onTouchEvent(event);
     }
 
     //overriding the Onclick() listner function
@@ -115,10 +146,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     checkAnswer(true);
                     updateQuestionView();
                     break;
+                    //when share button is clicked,we need to share the score using implicit intent
+                case R.id.sharebutton:
+                    sharescore();
+                    break;
 
 
             }
     }
+    //logic for shareing the current and highest score
+    private void sharescore(){
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT,"Playing an interesting game!");
+        String message="My Current Score is "+score.getScore()+" and my highest score until now is "+preferences.getHighestScore()+".Why don't you try?!!";
+        intent.putExtra(Intent.EXTRA_TEXT,message);
+        startActivity(intent);
+    }
+
     //function to check whether the user clicked answer is correct or wrong and display the message using Toast
     private void checkAnswer(boolean b) {
         int toastMessageId=0;
@@ -152,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scoreCounter -= 1;
         if (scoreCounter > 0) {
             score.setScore(scoreCounter);
+            Log.d("bad","score minus is :"+scoreCounter);
             scores.setText(MessageFormat.format("Current Score: {0}", String.valueOf(score.getScore())));
         } else {
             scoreCounter = 0;
